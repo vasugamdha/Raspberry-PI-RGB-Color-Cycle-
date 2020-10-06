@@ -1,20 +1,20 @@
-import RPi.GPIO as GPIO # Import Raspberry Pi GPIO library
-import time # Import the sleep function from the time module
+import RPi.GPIO as GPIO         # Import Raspberry Pi GPIO library
+import time                     # Import the sleep function from the time module
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 
 # make pins into an output
-ledR =GPIO.setup(17,GPIO.OUT) #Set pin for RED color
-ledG =GPIO.setup(27,GPIO.OUT) #Set pin for GREEN color
-ledB =GPIO.setup(22,GPIO.OUT) #Set pin for BLUE color
+ledR = GPIO.setup(17, GPIO.OUT) #Set pin for RED color
+ledG = GPIO.setup(27, GPIO.OUT) #Set pin for GREEN color
+ledB = GPIO.setup(22, GPIO.OUT) #Set pin for BLUE color
 
 #Set up outputs as PWM @ 144Hz
-freq=144
+freq = 144
 
-ledR = GPIO.PWM(17,freq)
-ledG = GPIO.PWM(27,freq)
-ledB = GPIO.PWM(22,freq)
+ledR = GPIO.PWM(17, freq)
+ledG = GPIO.PWM(27, freq)
+ledB = GPIO.PWM(22, freq)
 
 ledR.start(100)
 ledG.start(0)
@@ -26,13 +26,13 @@ def setColorRGB(stepR, stepG, stepB):
     ledR.ChangeDutyCycle(stepR)
     ledG.ChangeDutyCycle(stepG)
     ledB.ChangeDutyCycle(stepB)
-    #print("setcolorrgb called")
+    #print("setColorRGB() called")
 
 
 try:
-    while True: # Run forever / infinity loop
+    while True:                 # Run forever / infinity loop
         #initialize the pin color status [RED,GREEN,BLUE]
-        RGBcolor = [100,0,0]
+        RGBcolor = [100, 0, 0]
 
         for decColor in range(3):
 
@@ -60,7 +60,7 @@ except KeyboardInterrupt:
     ledR.stop(0) 
     ledG.stop(0)
     ledB.stop(0)
-    #print("Code Stoped")
+    #print("Code Stopped")
     
     #Restore default GPIO state
     GPIO.cleanup() 
